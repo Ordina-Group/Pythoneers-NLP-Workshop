@@ -1,2 +1,9 @@
+<<<<<<< HEAD
 scikit-learn==1.1.1
 pandas==1.4.3
+=======
+fastapi
+python-multipart
+requests
+uvicorn
+>>>>>>> caa6025 (Add basic API)
