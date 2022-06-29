@@ -114,31 +114,34 @@ def get_named_entities(file_id: int) -> dict:
     #     words = tokenize.word_tokenize(sentence)
     #     for word in words:
     #         data.append([i, word, "", "", ""])
+    #
+    # df = pd.DataFrame.from_records(data, columns=['SENTENCE_NR', 'WORD', 'POS', 'POS_TAG', 'NER_TAG'])
 
     data = []
     for sentence in sentences:
         words = tokenize.word_tokenize(sentence)
         data.extend(words)
 
-    serie = pd.Series(data)
+    print(data)
+    df = pd.DataFrame(data, columns=["WORD"])
+    print(df.head())
+    vec = TfidfVectorizer()
+    input_prediction = vec.fit_transform(df).toarray()
+    print('input of predictiuon (x_test)')
+    print(input_prediction)
+    print(input_prediction.shape)
 
-    # df = pd.DataFrame.from_records(data, columns=['SENTENCE_NR', 'WORD', 'POS', 'POS_TAG', 'NER_TAG'])
-
-    # tfidf_vectorizer = TfidfVectorizer(max_df=0.5, min_df=0, stop_words=None)
-    # tfidf = tfidf_vectorizer.fit_transform(df["WORD"])
 
     model_path = Path.cwd() / "nlp_model/clf.pickle"
-    clf = pickle.load(open(model_path, "rb"))
+    cls = pickle.load(open(model_path, "rb"))
 
     # vectorizer = TfidfVectorizer(stop_words="english")
     # x = vectorizer.fit_transform(["henk"])
     # vectorizer = DictVectorizer(sparse=False)
-    # x = vectorizer.fit_transform(df.to_dict("records"))
-    vectorizer = CountVectorizer(stop_words="english")
-    x = vectorizer.fit(["henk"])
+    # x = vectorizer.transform(df)
+    # vectorizer = CountVectorizer(stop_words="english")
+    # x = vectorizer.fit(["henk"])
 
-    print("PYYYYT", x.shape)
-
-    named_entities = clf.predict(x.reshape(1,-1))
+    named_entities = cls.predict(input_prediction)
 
     return {"named_entities": named_entities}
