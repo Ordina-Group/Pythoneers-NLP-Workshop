@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.linear_model import LogisticRegression, Perceptron
-from sklearn.metrics import f1_score
+from sklearn.metrics import f1_score, confusion_matrix, accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
@@ -59,8 +59,12 @@ def main():
 
     cls.fit(x_train, y_train)
     y_pred = cls.predict(x_test)
-    print(y_pred)
+
+    print('Confusion matrix')
+    print(confusion_matrix(y_test, y_pred))
     print(classification_report(y_test, cls.predict(x_test)))
+    print(f"Accuracy: {accuracy_score(y_test, y_pred)}")
+
 
     pickle.dump(cls, open(output_model_path, "wb"))
 
