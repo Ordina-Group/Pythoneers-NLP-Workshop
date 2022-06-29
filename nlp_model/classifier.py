@@ -58,6 +58,7 @@ def main():
     print(y_train)
 
     cls.fit(x_train, y_train)
+    print(x_test)
     y_pred = cls.predict(x_test)
 
     print('Confusion matrix')
