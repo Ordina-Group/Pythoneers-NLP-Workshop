@@ -1,6 +1,13 @@
 import re
+import pickle
+from pathlib import Path
 
+from nltk import tokenize
 from fastapi import FastAPI, UploadFile
+import pandas as pd
+from sklearn.feature_extraction import DictVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 from db import (
     add_entry,
@@ -22,6 +29,7 @@ def root() -> dict:
 async def upload_file(file: UploadFile) -> dict:
     message = "file successfully uploaded"
     file_name = ""
+
     try:
         contents = await file.read()
         file_name = file.filename
@@ -41,8 +49,10 @@ async def upload_file(file: UploadFile) -> dict:
 @app.get("/file")
 def get_file() -> dict:
     entries = get_all_entries(TABLE_NAME)
+
     nr_files = len(entries)
     files = [{"id": rowid, "file_name": file_name} for rowid, file_name, _ in entries]
+
     return {
         "nr_files": nr_files,
         "files": files,
@@ -52,6 +62,7 @@ def get_file() -> dict:
 @app.get("/file/{file_id}")
 def get_file(file_id: int) -> dict:
     file_name, contents = get_entry_by_id(TABLE_NAME, file_id)
+
     return {
         "file_name": file_name,
         "contents": contents,
@@ -61,9 +72,11 @@ def get_file(file_id: int) -> dict:
 @app.get("/file/{file_id}/words")
 def get_words(file_id: int) -> dict:
     _, contents = get_entry_by_id(TABLE_NAME, file_id)
+
     contents_without_punctuation = re.sub(r"[^a-zA-Z0-9_ \n]+", "", contents).lower()
     unique_words = sorted(set(contents_without_punctuation.split()))
     word_count = len(unique_words)
+
     return {
         "word_count": word_count,
         "unique_words": unique_words,
@@ -73,19 +86,59 @@ def get_words(file_id: int) -> dict:
 @app.get("/file/{file_id}/letters")
 def get_letters(file_id: int) -> dict:
     _, contents = get_entry_by_id(TABLE_NAME, file_id)
+
     letter_count = sum(c.isalpha() for c in contents)
+    
     return {"letter_count": letter_count}
 
 
 @app.get("/file/{file_id}/sentiment")
 def get_sentiment(file_id: int) -> dict:
     _, contents = get_entry_by_id(TABLE_NAME, file_id)
-    sentiment = "positive"  # TODO: dummy
-    return {"sentiment": sentiment}
+
+    sentences = tokenize.sent_tokenize(contents)
+    sentiment_analyzer = SentimentIntensityAnalyzer()
+    sentiments = [sentiment_analyzer.polarity_scores(sentence) for sentence in sentences]
+
+    return {"sentiment": sentiments}
 
 
 @app.get("/file/{file_id}/named_entities")
 def get_named_entities(file_id: int) -> dict:
     _, contents = get_entry_by_id(TABLE_NAME, file_id)
-    named_entities = "named_entities"  # TODO: dummy
+
+    sentences = tokenize.sent_tokenize(contents)
+
+    # data = []
+    # for i, sentence in enumerate(sentences):
+    #     words = tokenize.word_tokenize(sentence)
+    #     for word in words:
+    #         data.append([i, word, "", "", ""])
+
+    data = []
+    for sentence in sentences:
+        words = tokenize.word_tokenize(sentence)
+        data.extend(words)
+
+    serie = pd.Series(data)
+
+    # df = pd.DataFrame.from_records(data, columns=['SENTENCE_NR', 'WORD', 'POS', 'POS_TAG', 'NER_TAG'])
+
+    # tfidf_vectorizer = TfidfVectorizer(max_df=0.5, min_df=0, stop_words=None)
+    # tfidf = tfidf_vectorizer.fit_transform(df["WORD"])
+
+    model_path = Path.cwd() / "nlp_model/clf.pickle"
+    clf = pickle.load(open(model_path, "rb"))
+
+    # vectorizer = TfidfVectorizer(stop_words="english")
+    # x = vectorizer.fit_transform(["henk"])
+    # vectorizer = DictVectorizer(sparse=False)
+    # x = vectorizer.fit_transform(df.to_dict("records"))
+    vectorizer = CountVectorizer(stop_words="english")
+    x = vectorizer.fit(["henk"])
+
+    print("PYYYYT", x.shape)
+
+    named_entities = clf.predict(x.reshape(1,-1))
+
     return {"named_entities": named_entities}
