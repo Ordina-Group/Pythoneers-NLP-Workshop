@@ -21,8 +21,6 @@ def main():
     output_model_path = Path.cwd() / "nlp_model/clf.pickle"
 
     df = pd.read_csv(input_data_path, sep='\t', names=['SENTENCE_NR', 'WORD', 'POS', 'POS_TAG', 'NER_TAG'])
-    # df = pd.read_csv('/data/train.csv', sep='\t', names=['SENTENCE_NR', 'WORD', 'POS', 'POS_TAG', 'NER_TAG'])
-    # df = df[["SENTENCE_NR", "WORD"]]
 
     # Adjust to allow more data to be trained
     df = df[:5000]
