@@ -8,7 +8,7 @@ import pandas as pd
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-
+from collections import defaultdict
 from db import (
     add_entry,
     get_all_entries,
@@ -105,43 +105,49 @@ def get_sentiment(file_id: int) -> dict:
 
 @app.get("/file/{file_id}/named_entities")
 def get_named_entities(file_id: int) -> dict:
+
+    # Get text from uploaded file from database.
     _, contents = get_entry_by_id(TABLE_NAME, file_id)
 
+    # Tokenize (split) the sentences in a list of sentences.
     sentences = tokenize.sent_tokenize(contents)
 
-    # data = []
-    # for i, sentence in enumerate(sentences):
-    #     words = tokenize.word_tokenize(sentence)
-    #     for word in words:
-    #         data.append([i, word, "", "", ""])
-    #
-    # df = pd.DataFrame.from_records(data, columns=['SENTENCE_NR', 'WORD', 'POS', 'POS_TAG', 'NER_TAG'])
-
+    # Tokenize each sentence into a list of words
     data = []
     for sentence in sentences:
+        print(sentence)
         words = tokenize.word_tokenize(sentence)
         data.extend(words)
 
-    print(data)
+    # Transform list to dataframe
     df = pd.DataFrame(data, columns=["WORD"])
-    print(df.head())
-    vec = TfidfVectorizer()
-    input_prediction = vec.fit_transform(df).toarray()
-    print('input of predictiuon (x_test)')
-    print(input_prediction)
-    print(input_prediction.shape)
+    
+    # Transform dataframe back to scipy object
+    input_array = df["WORD"].tolist()
+
+    # Load tfidf vectorizer that was used with the corresponding classifier.
+    vec = pickle.load(open("tfidf_vec.pickle", 'rb'))
+
+    # Transform the given input array into tfidf vector.
+    # Please note, fit_transform is used to train the vectorizer object.
+    # The function transform is used to make it good for classifier input.
+    input_vector = vec.transform(input_array)
 
 
+    # Retrieve model path
     model_path = Path.cwd() / "nlp_model/clf.pickle"
+
+    # Load classifier model
     cls = pickle.load(open(model_path, "rb"))
 
-    # vectorizer = TfidfVectorizer(stop_words="english")
-    # x = vectorizer.fit_transform(["henk"])
-    # vectorizer = DictVectorizer(sparse=False)
-    # x = vectorizer.transform(df)
-    # vectorizer = CountVectorizer(stop_words="english")
-    # x = vectorizer.fit(["henk"])
+    # Get prediction based on input of the file.
+    ner_tag = cls.predict(input_vector)
 
-    named_entities = cls.predict(input_prediction)
+    # Combine word and NER tag in list of tuples
+    named_entities = [(word, ner_tag) for word, ner_tag in zip(input_array, ner_tag)]
 
-    return {"named_entities": named_entities}
+
+    # Create dictionary for api with the output
+    dict = defaultdict(list)
+    dict['named_entities'] = named_entities
+    return dict
