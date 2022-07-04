@@ -21,7 +21,7 @@ def main():
     df = pd.read_csv(input_data_path, sep='\t', names=['SENTENCE_NR', 'WORD', 'POS', 'POS_TAG', 'NER_TAG'])
 
     # Adjust to allow more data to be trained
-    df = df[:100000]
+    df = df[:180000]
 
     # Remove empty rows
     df.dropna(inplace=True)
