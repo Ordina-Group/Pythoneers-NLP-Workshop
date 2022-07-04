@@ -5,8 +5,6 @@ from pathlib import Path
 from nltk import tokenize
 from fastapi import FastAPI, UploadFile
 import pandas as pd
-from sklearn.feature_extraction import DictVectorizer
-from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from collections import defaultdict
 from db import (
