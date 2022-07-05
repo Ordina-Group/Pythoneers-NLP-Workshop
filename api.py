@@ -124,7 +124,7 @@ def get_named_entities(file_id: int) -> dict:
     input_array = df["WORD"].tolist()
 
     # Load tfidf vectorizer that was used with the corresponding classifier.
-    vec = pickle.load(open("tfidf_vec.pickle", 'rb'))
+    vec = pickle.load(open("nlp_model/tfidf_vec.pickle", 'rb'))
 
     # Transform the given input array into tfidf vector.
     # Please note, fit_transform is used to train the vectorizer object.
