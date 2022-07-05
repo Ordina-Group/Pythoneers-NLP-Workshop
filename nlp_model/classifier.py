@@ -16,9 +16,10 @@ def main():
     # Retrieve data
     input_data_path = Path.cwd() / "data/train.csv"
     output_model_path = Path.cwd() / "nlp_model/clf.pickle"
+    output_vectorizer_path = Path.cwd() / "nlp_model/tfidf_vec.pickle"
 
     # Convert data to dataframe
-    df = pd.read_csv(input_data_path, sep='\t', names=['SENTENCE_NR', 'WORD', 'POS', 'POS_TAG', 'NER_TAG'])
+    df = pd.read_csv(input_data_path, sep="\t", names=["SENTENCE_NR", "WORD", "POS", "POS_TAG", "NER_TAG"])
 
     # Adjust to allow more data to be trained
     df = df[:180000]
@@ -48,17 +49,16 @@ def main():
     # Get classification label predictions.
     y_pred = cls.predict(x_test)
 
-
     # Print statistics
-    print('Confusion matrix')
+    print("Confusion matrix")
     print(confusion_matrix(y_test, y_pred))
     print(classification_report(y_test, cls.predict(x_test)))
     print(f"Accuracy: {accuracy_score(y_test, y_pred)}")
 
     # Save classifier and corresponding vectorizer for api usage.
     pickle.dump(cls, open(output_model_path, "wb"))
-    pickle.dump(vec, open('tfidf_vec.pickle', "wb"))
+    pickle.dump(vec, open(output_vectorizer_path, "wb"))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
