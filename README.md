@@ -46,9 +46,9 @@ Oh! Don't forget that Google is your friend!
 
 ## Getting started
 Before we can make a new Python project, we need to make sure that you have a 
-(recent) Python version installed on your device. Python 3.7+ is preferred. When 
-you have a recent version of Python installed, you have automatically a version 
-of the tool `pip` installed
+(recent) Python version installed on your device. Python 3.7+ is preferred. If 
+you have a recent version of Python installed, a version of the tool `pip` is
+automatically installed.
 
 - Check python version:
 
