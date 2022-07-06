@@ -75,9 +75,14 @@ all the required packages for this project.
     
     `python -m pip install -U pip`
 
+- Install wheel:
+    
+    `python -m pip install wheel` 
+
+
 - Install required packages:
     
-    `pip install -r requirements.txt` 
+    `python -m pip install -r requirements.txt` 
 
 - Set up the database:
 
