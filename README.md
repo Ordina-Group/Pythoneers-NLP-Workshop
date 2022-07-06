@@ -52,7 +52,9 @@ of the tool `pip` installed
 
 - Check python version:
 
-    `python -V`
+    `python --version`
+    
+    **Note**: When the command is not found or the version is 2.x, try `python3 --version` and use `python3` instead of `python` in the commands below.
 
 #### Project setup
 When the right python version is installed, we can open our project and install
@@ -111,7 +113,7 @@ The post request uses the module `requester.py` (just take a look and see what
 happens there). To do the actual upload of files to the database, run the 
 following command:
     
-    `python requester.py`
+    python requester.py
     
 Make sure that you have another terminal active, where the API runner is active.
 
