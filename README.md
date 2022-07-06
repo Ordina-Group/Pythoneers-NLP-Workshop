@@ -66,11 +66,11 @@ all the required packages for this project.
 
     - Linux:
     
-        `venv/bin/activate` 
+        `source venv/bin/activate` 
 
     - Windows:
     
-        `venv\Scripts\activate`  
+        `source venv\Scripts\activate`  
 - Update `pip` to get its latest version:
     
     `python -m pip install -U pip`
