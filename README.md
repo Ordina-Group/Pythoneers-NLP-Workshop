@@ -184,10 +184,11 @@ def get_words(file_id: int) -> dict:
 {"word_count":<number_of_words>,"unique_words":["<word_1>", "<word_2>", ...]}
 ```
 
-### 4. Get the sentiment of sentences of a text 
-> Create a `GET` request in `api.py` that returns a dict containing the 
+### 4. Get the sentiment of sentence tokens of a text 
+> Create a `GET` request in `api.py` that returns a dict of sentence tokens containing the 
 > sentiment of that file when you visit 
-> `http://127.0.0.1:8000/file/{id}/sentiment` in your browser.
+> `http://127.0.0.1:8000/file/{id}/sentiment` in your browser. A sentence can exist out of two sentences like
+> 'Do you know where the parkinglot is' and 'also the entrance of the supermarket'.
 
 ##### Additional info
 - You can use the package `vaderSentiment` to make life a bit easier. This
