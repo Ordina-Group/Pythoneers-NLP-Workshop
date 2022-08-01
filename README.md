@@ -179,11 +179,15 @@ def get_words(file_id: int) -> dict:
 {"word_count":<number_of_words>,"unique_words":["<word_1>", "<word_2>", ...]}
 ```
 
-### 4. Get the sentiment of sentence tokens of a text 
+### 4. Get the sentiment of sentence tokens of all the lines of a text file. 
 > Create a `GET` request in `api.py` that returns a dict of sentence tokens containing the 
 > sentiment of that file when you visit 
-> `http://127.0.0.1:8000/file/{id}/sentiment` in your browser. A sentence can exist out of two sentences like
-> 'Do you know where the parkinglot is' and 'also the entrance of the supermarket'.
+> `http://127.0.0.1:8000/file/{id}/sentiment` in your browser. A line can hold multiple sentence tokens.
+> For example, the line below holds three sentence tokens :
+> 
+>  "This is the first sentence. This is the second sentence. This is the third sentence."
+
+
 
 ##### Additional info
 - You can use the package `vaderSentiment` to make life a bit easier. This
