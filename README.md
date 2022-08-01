@@ -132,7 +132,7 @@ b'{"message":"file successfully uploaded","file_name":"file.txt"}'
 - A part of the code for this request is already given in `api.py`. Just replace
   the `...` with the right code to get the right output.
 
-### 3. Get all the words from a text
+### 3. Get all the tokens from a text
 #### Part I
 > Create a `GET` request  in `api.py` that returns a dict containing the numbers
 > of files and a list of the files when you visit `http://127.0.0.1:8000/file`
@@ -169,8 +169,8 @@ def get_file(file_id: int) -> dict:
 
 #### Part III
 > Create a `GET` request in `api.py` that returns a dict containing all the 
-> words from that file when you visit `http://127.0.0.1:8000/file/{id}/words` in 
-> your browser.
+> tokens from that file when you visit `http://127.0.0.1:8000/file/{id}/words` in 
+> your browser. A token can be a set of multiple words that belong together like 'New York' or 'Harry Potter'.
 
 ##### Function signature
 ```
