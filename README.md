@@ -205,7 +205,7 @@ def get_sentiment(file_id: int) -> dict:
 
 ##### Expected response
 ```
-{"sentiment":[{"sentence":<sentence text>,"neg":<score>,"neu":<score>,"pos":<score>,"compound":<score>}],...}
+{"sentiment":[{"sentence":<sentence_text>,"neg":<score>,"neu":<score>,"pos":<score>,"compound":<score>}],...}
 ```
 
 
