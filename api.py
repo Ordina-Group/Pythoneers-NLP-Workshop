@@ -49,11 +49,6 @@ def get_words(file_id: int) -> dict:
     ...
 
 
-@app.get("/file/{file_id}/letters")
-def get_letters(file_id: int) -> dict:
-    ...
-
-
 @app.get("/file/{file_id}/sentiment")
 def get_sentiment(file_id: int) -> dict:
     ...
