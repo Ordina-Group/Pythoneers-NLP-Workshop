@@ -62,15 +62,10 @@ all the required packages for this project.
 - Create a virtual environment:
 
     `python -m venv venv`
-- Activate the virtual environment for
+- Activate the virtual environment:
 
-    - Linux:
+    - See [this link](https://docs.python.org/3/library/venv.html) how to activate the `venv` for your operating system.
     
-        `source venv/bin/activate` 
-
-    - Windows:
-    
-        `source venv\Scripts\activate`  
 - Update `pip` to get its latest version:
     
     `python -m pip install -U pip`
@@ -210,7 +205,7 @@ def get_sentiment(file_id: int) -> dict:
 
 ##### Expected response
 ```
-{"sentiment":[{"neg":<score>,"neu":<score>,"pos":<score>,"compound":<score>}]}
+{"sentiment":[{"sentence":<sentence text>,"neg":<score>,"neu":<score>,"pos":<score>,"compound":<score>}],...}
 ```
 
 
@@ -235,7 +230,7 @@ def get_named_entities(file_id: int) -> dict:
 
 ##### Expected response
 ```
-{"named_entities":[["<word_1>","<entity"],["<word_2>","<entity"],...]]}
+{"named_entities":[["<word_1>","<entity>"],["<word_2>","<entity>"],...]]}
 ```
 
 ##### Notes
