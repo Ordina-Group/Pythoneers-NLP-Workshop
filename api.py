@@ -80,15 +80,6 @@ def get_words(file_id: int) -> dict:
     }
 
 
-@app.get("/file/{file_id}/letters")
-def get_letters(file_id: int) -> dict:
-    _, contents = get_entry_by_id(TABLE_NAME, file_id)
-
-    letter_count = sum(c.isalpha() for c in contents)
-    
-    return {"letter_count": letter_count}
-
-
 @app.get("/file/{file_id}/sentiment")
 def get_sentiment(file_id: int) -> dict:
     _, contents = get_entry_by_id(TABLE_NAME, file_id)
