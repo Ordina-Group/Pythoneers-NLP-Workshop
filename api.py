@@ -45,7 +45,7 @@ async def upload_file(file: UploadFile) -> dict:
 
 
 @app.get("/file")
-def get_file() -> dict:
+def get_all_files() -> dict:
     entries = get_all_entries(TABLE_NAME)
 
     nr_files = len(entries)
