@@ -1,4 +1,3 @@
-import re
 import pickle
 from pathlib import Path
 
@@ -71,8 +70,8 @@ def get_file(file_id: int) -> dict:
 def get_words(file_id: int) -> dict:
     _, contents = get_entry_by_id(TABLE_NAME, file_id)
 
-    contents_without_punctuation = re.sub(r"[^a-zA-Z0-9_ \n]+", "", contents).lower()
-    unique_words = sorted(set(contents_without_punctuation.split()))
+    tokens = tokenize.word_tokenize(contents)
+    unique_words = sorted(set(token.lower() for token in tokens if token.isalpha()))
     word_count = len(unique_words)
 
     return {
