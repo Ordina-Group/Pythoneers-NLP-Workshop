@@ -40,7 +40,7 @@ def get_file() -> dict:
 
 
 @app.get("/file/{file_id}")
-def get_file(file_id: int) -> dict:
+def get_all_files(file_id: int) -> dict:
     ...
 
 

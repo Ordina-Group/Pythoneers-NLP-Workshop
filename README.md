@@ -136,7 +136,7 @@ b'{"message":"file successfully uploaded","file_name":"file.txt"}'
 ##### Function signature
 ```
 @app.get("/file")
-def get_file() -> dict:
+def get_all_files() -> dict:
     ...
 ```
 
