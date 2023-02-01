@@ -66,17 +66,17 @@ def get_file(file_id: int) -> dict:
     }
 
 
-@app.get("/file/{file_id}/words")
-def get_words(file_id: int) -> dict:
+@app.get("/file/{file_id}/tokens")
+def get_tokens(file_id: int) -> dict:
     _, contents = get_entry_by_id(TABLE_NAME, file_id)
 
     tokens = tokenize.word_tokenize(contents)
-    unique_words = sorted(set(token.lower() for token in tokens if token.isalpha()))
-    word_count = len(unique_words)
+    unique_tokens = sorted(set(token.lower() for token in tokens if token.isalpha()))
+    token_count = len(unique_tokens)
 
     return {
-        "word_count": word_count,
-        "unique_words": unique_words,
+        "token_count": token_count,
+        "unique_tokens": unique_tokens,
     }
 
 
