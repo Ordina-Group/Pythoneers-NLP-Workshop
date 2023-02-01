@@ -1,11 +1,12 @@
 # NLP workshop
 
-The main goal of this workshop is to give you a brief introduction of how to 
-make an API and how to use it.
+The main goal of this workshop is to give an introduction into NLP. Hopefully,
+this will both be interesting and spark ideas for many professional and/or
+personal projects!
 
 ##### Table of Contents  
 - [Background information](#background-information)
-  - [Api](#api)
+  - [API](#api)
   - [Machine learning](#machine-learning)
 - [Getting started](#getting-started)
   - [Project setup](#project-setup)
@@ -15,6 +16,8 @@ make an API and how to use it.
   - [Get all words from a text](#3-get-all-the-words-from-a-text)
   - [Get the sentiment of a text](#4-get-the-sentiment-of-a-text)
   - [Get the named entities of a text](#5-get-the-named-entities-of-a-text)
+- [Competition](#competition)
+  - [a](#a)
 
 ## Background information
 ### API
@@ -22,8 +25,9 @@ API stands for *Application Programming Interface*. An API is basically a method
 for two applications (or just two pieces of software) to communicate with one
 another.
 
-This communication consists of requests. The two types of requests we are going
-to use are:
+This communication can take place in many different forms, but often
+when talking about APIs we mean web APIs. This communication consists of
+requests. The two types of requests we are going to use are:
 
 - `GET` requests: a request to get some data from the resource
 - `POST` request: a request to send some data to the resource
@@ -94,7 +98,7 @@ all the required packages for this project.
 ## Exercises
 ### 1. Do a `GET` request
 > Do a `GET` request that returns a dictionary containing the message "Hello 
-> future pythoneer" when you visit `http://127.0.0.1:8000` in your browser.
+> Future Pythoneer" when you visit `http://127.0.0.1:8000` in your browser.
 
 ##### Expected response
 ```
@@ -169,14 +173,14 @@ def get_file(file_id: int) -> dict:
 
 ##### Function signature
 ```
-@app.get("/file/{file_id}/words")
-def get_words(file_id: int) -> dict:
+@app.get("/file/{file_id}/tokens")
+def get_tokens(file_id: int) -> dict:
     ...
 ```
 
 ##### Expected response
 ```
-{"word_count":<number_of_words>,"unique_words":["<word_1>", "<word_2>", ...]}
+{"token_count":<number_of_tokens>,"unique_tokens":["<token_1>", "<token_2>", ...]}
 ```
 
 ### 4. Get the sentiment of sentence tokens of all the lines of a text file. 
@@ -187,11 +191,7 @@ def get_words(file_id: int) -> dict:
 > 
 >  "This is the first sentence. This is the second sentence. This is the third sentence."
 
-
-
 ##### Additional info
-- You can use the package `vaderSentiment` to make life a bit easier. This
-  package is already installed.
 - You need to install NLTK data. In order to do that, you need to open a console
   and type in the following lines:
   
@@ -211,7 +211,6 @@ def get_sentiment(file_id: int) -> dict:
 ```
 {"sentiment":[{"sentence":<sentence_text>,"neg":<score>,"neu":<score>,"pos":<score>,"compound":<score>}],...}
 ```
-
 
 ### 5. Get the named entities of a text
 > Create a `GET` request in `api.py` that returns a dict containing all the 
@@ -234,7 +233,7 @@ def get_named_entities(file_id: int) -> dict:
 
 ##### Expected response
 ```
-{"named_entities":[["<word_1>","<entity>"],["<word_2>","<entity>"],...]]}
+{"named_entities":[["<token_1>","<entity>"],["<token_2>","<entity>"],...]]}
 ```
 
 ##### Notes
