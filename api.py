@@ -1,11 +1,12 @@
-import pickle
-from pathlib import Path
-
-from nltk import tokenize
-from fastapi import FastAPI, UploadFile
-import pandas as pd
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from collections import defaultdict
+from pathlib import Path
+import pickle
+
+from fastapi import FastAPI, UploadFile
+from nltk import tokenize
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+import pandas as pd
+
 from db import (
     add_entry,
     get_all_entries,
@@ -86,7 +87,7 @@ def get_sentiment(file_id: int) -> dict:
 
     sentences = tokenize.sent_tokenize(contents)
     sentiment_analyzer = SentimentIntensityAnalyzer()
-    sentiments = [sentiment_analyzer.polarity_scores(sentence) for sentence in sentences]
+    sentiments = {s: sentiment_analyzer.polarity_scores(s) for s in sentences}
 
     return {"sentiment": sentiments}
 
