@@ -44,8 +44,8 @@ def get_all_files(file_id: int) -> dict:
     ...
 
 
-@app.get("/file/{file_id}/words")
-def get_words(file_id: int) -> dict:
+@app.get("/file/{file_id}/tokens")
+def get_tokens(file_id: int) -> dict:
     ...
 
 
