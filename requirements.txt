@@ -5,4 +5,3 @@ python-multipart
 requests
 scikit-learn
 uvicorn
-vaderSentiment
