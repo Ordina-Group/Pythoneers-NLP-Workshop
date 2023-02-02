@@ -4,8 +4,6 @@ from db import (
     add_entry,
     get_all_entries,
     get_entry_by_id,
-    ENTITIES,
-    TABLE_NAME,
 )
 
 app = FastAPI()
@@ -25,9 +23,9 @@ async def upload_file(file: UploadFile) -> dict:
         contents = await file.read()
         file_name = file.filename
         data = str(contents, "utf-8")
-        add_entry(TABLE_NAME, entities=ENTITIES, values=[file_name, data])
+        add_entry([file_name, data])
     except Exception as e:
-        message = e
+        message = str(e)
     finally:
         await file.close()
 
