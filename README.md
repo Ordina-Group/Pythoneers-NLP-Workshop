@@ -10,14 +10,14 @@ personal projects!
   - [Machine learning](#machine-learning)
 - [Getting started](#getting-started)
   - [Project setup](#project-setup)
+  - [Check Python version](#check-python-version)
 - [Exercises](#exercises)
-  - [Do a `GET` request](#1-do-a-get-request)
-  - [Create a `POST` request](#2-create-a-post-request)
-  - [Get all words from a text](#3-get-all-the-words-from-a-text)
-  - [Get the sentiment of a text](#4-get-the-sentiment-of-a-text)
-  - [Get the named entities of a text](#5-get-the-named-entities-of-a-text)
+  1. [Do a `GET` request](#1-do-a-get-request)
+  2. [Create a `POST` request](#2-create-a-post-request)
+  3. [Get all words from a text](#3-get-all-the-words-from-a-text)
+  4. [Get the sentiment of a text](#4-get-the-sentiment-of-a-text)
+  5. [Get the named entities of a text](#5-get-the-named-entities-of-a-text)
 - [Competition](#competition)
-  - [a](#a)
 
 ## Background information
 ### API
@@ -54,11 +54,10 @@ Before we can make a new Python project, we need to make sure that you have a
 you have a recent version of Python installed, a version of the tool `pip` is
 automatically installed.
 
-- Check python version:
+#### Check Python version
+`python --version`
 
-    `python --version`
-    
-    **Note**: When the command is not found or the version is 2.x, try `python3 --version` and use `python3` instead of `python` in the commands below.
+**Note**: When the command is not found or the version is 2.x, try `python3 --version` and use `python3` instead of `python` in the commands below.
 
 #### Project setup
 When the right python version is installed, we can open our project and install
@@ -191,15 +190,6 @@ def get_tokens(file_id: int) -> dict:
 > 
 >  "This is the first sentence. This is the second sentence. This is the third sentence."
 
-##### Additional info
-- You need to install NLTK data. In order to do that, you need to open a console
-  and type in the following lines:
-  
-  ```
-  >>> import nltk
-  >>> nltk.download('punkt')
-  ```
-
 ##### Function signature
 ```
 @app.get("/file/{file_id}/sentiment")
@@ -217,7 +207,33 @@ def get_sentiment(file_id: int) -> dict:
 > named entities of the file when you visit 
 > `http://127.0.0.1:8000/file/{id}/sentiment` in your browser.
 
+##### Function signature
+```
+@app.get("/file/{file_id}/named_entities")
+def get_named_entities(file_id: int) -> dict:
+    ...
+```
+
+##### Expected response
+```
+{"named_entities":[["<token_1>","<entity_tag>"],["<token_2>","<entity_tag>"],...]]}
+```
+
+## Competition
+TODO: review and update below text
+
+> Create a `GET` request in `api.py` that returns a dict containing all the 
+> named entities of the file when you visit 
+> `http://127.0.0.1:8000/file/{id}/sentiment` in your browser.
+
 ##### Additional info
+- You need to install NLTK data. In order to do that, you need to open a console
+  and type in the following lines:
+  
+  ```
+  >>> import nltk
+  >>> nltk.download('punkt')
+  ```
 - You need to make a model that will train the computer. The data to train the
   computer can be found in `data/train.csv`.
 - You can write the code for the model in `nlp_model/classifier.py`
