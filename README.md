@@ -1,20 +1,23 @@
 # NLP workshop
 
-The main goal of this workshop is to give you a brief introduction of how to 
-make an API and how to use it.
+The main goal of this workshop is to give an introduction into NLP. Hopefully,
+this will both be interesting and spark ideas for many professional and/or
+personal projects!
 
 ##### Table of Contents  
 - [Background information](#background-information)
-  - [Api](#api)
+  - [API](#api)
   - [Machine learning](#machine-learning)
 - [Getting started](#getting-started)
   - [Project setup](#project-setup)
+  - [Check Python version](#check-python-version)
 - [Exercises](#exercises)
-  - [Do a `GET` request](#1-do-a-get-request)
-  - [Create a `POST` request](#2-create-a-post-request)
-  - [Get all words from a text](#3-get-all-the-words-from-a-text)
-  - [Get the sentiment of a text](#4-get-the-sentiment-of-a-text)
-  - [Get the named entities of a text](#5-get-the-named-entities-of-a-text)
+  1. [Do a `GET` request](#1-do-a-get-request)
+  2. [Create a `POST` request](#2-create-a-post-request)
+  3. [Get all words from a text](#3-get-all-the-words-from-a-text)
+  4. [Get the sentiment of a text](#4-get-the-sentiment-of-a-text)
+  5. [Get the named entities of a text](#5-get-the-named-entities-of-a-text)
+- [Competition](#competition)
 
 ## Background information
 ### API
@@ -22,8 +25,9 @@ API stands for *Application Programming Interface*. An API is basically a method
 for two applications (or just two pieces of software) to communicate with one
 another.
 
-This communication consists of requests. The two types of requests we are going
-to use are:
+This communication can take place in many different forms, but often
+when talking about APIs we mean web APIs. This communication consists of
+requests. The two types of requests we are going to use are:
 
 - `GET` requests: a request to get some data from the resource
 - `POST` request: a request to send some data to the resource
@@ -46,13 +50,14 @@ Oh! Don't forget that Google is your friend!
 
 ## Getting started
 Before we can make a new Python project, we need to make sure that you have a 
-(recent) Python version installed on your device. Python 3.7+ is preferred. When 
-you have a recent version of Python installed, you have automatically a version 
-of the tool `pip` installed
+(recent) Python version installed on your device. Python 3.8+ is required. If 
+you have a recent version of Python installed, a version of the tool `pip` is
+automatically installed.
 
-- Check python version:
+#### Check Python version
+`python --version`
 
-    `python -V`
+**Note**: When the command is not found or the version is 2.x, try `python3 --version` and use `python3` instead of `python` in the commands below.
 
 #### Project setup
 When the right python version is installed, we can open our project and install
@@ -60,22 +65,22 @@ all the required packages for this project.
 - Create a virtual environment:
 
     `python -m venv venv`
-- Activate the virtual environment for
+- Activate the virtual environment:
 
-    - Linux:
+    - See [this link](https://docs.python.org/3/library/venv.html) how to activate the `venv` for your operating system.
     
-        `venv/bin/activate` 
-
-    - Windows:
-    
-        `venv\Scripts\activate`  
 - Update `pip` to get its latest version:
     
     `python -m pip install -U pip`
 
+- Install wheel:
+    
+    `python -m pip install wheel` 
+
+
 - Install required packages:
     
-    `pip install -r requirements.txt` 
+    `python -m pip install -r requirements.txt` 
 
 - Set up the database:
 
@@ -92,7 +97,7 @@ all the required packages for this project.
 ## Exercises
 ### 1. Do a `GET` request
 > Do a `GET` request that returns a dictionary containing the message "Hello 
-> future pythoneer" when you visit `http://127.0.0.1:8000` in your browser.
+> Future Pythoneer" when you visit `http://127.0.0.1:8000` in your browser.
 
 ##### Expected response
 ```
@@ -111,7 +116,7 @@ The post request uses the module `requester.py` (just take a look and see what
 happens there). To do the actual upload of files to the database, run the 
 following command:
     
-    `python requester.py`
+    python requester.py
     
 Make sure that you have another terminal active, where the API runner is active.
 
@@ -125,7 +130,7 @@ b'{"message":"file successfully uploaded","file_name":"file.txt"}'
 - A part of the code for this request is already given in `api.py`. Just replace
   the `...` with the right code to get the right output.
 
-### 3. Get all the words from a text
+### 3. Get all the tokens from a text
 #### Part I
 > Create a `GET` request  in `api.py` that returns a dict containing the numbers
 > of files and a list of the files when you visit `http://127.0.0.1:8000/file`
@@ -162,36 +167,28 @@ def get_file(file_id: int) -> dict:
 
 #### Part III
 > Create a `GET` request in `api.py` that returns a dict containing all the 
-> words from that file when you visit `http://127.0.0.1:8000/file/{id}/words` in 
-> your browser.
+> tokens from that file when you visit `http://127.0.0.1:8000/file/{id}/words` in 
+> your browser. A token can be a set of multiple words that belong together like 'New York' or 'Harry Potter'.
 
 ##### Function signature
 ```
-@app.get("/file/{file_id}/words")
-def get_words(file_id: int) -> dict:
+@app.get("/file/{file_id}/tokens")
+def get_tokens(file_id: int) -> dict:
     ...
 ```
 
 ##### Expected response
 ```
-{"word_count":<number_of_words>,"unique_words":["<word_1>", "<word_2>", ...]}
+{"token_count":<number_of_tokens>,"unique_tokens":["<token_1>", "<token_2>", ...]}
 ```
 
-### 4. Get the sentiment of a text
-> Create a `GET` request in `api.py` that returns a dict containing the 
+### 4. Get the sentiment of sentence tokens of all the lines of a text file. 
+> Create a `GET` request in `api.py` that returns a dict of sentence tokens containing the 
 > sentiment of that file when you visit 
-> `http://127.0.0.1:8000/file/{id}/sentiment` in your browser.
-
-##### Additional info
-- You can use the package `vaderSentiment` to make life a bit easier. This
-  package is already installed.
-- You need to install NLTK data. In order to do that, you need to open a console
-  and type in the following lines:
-  
-  ```
-  >>> import nltk
-  >>> nltk.download('punkt')
-  ```
+> `http://127.0.0.1:8000/file/{id}/sentiment` in your browser. A line can hold multiple sentence tokens.
+> For example, the line below holds three sentence tokens :
+> 
+>  "This is the first sentence. This is the second sentence. This is the third sentence."
 
 ##### Function signature
 ```
@@ -202,16 +199,41 @@ def get_sentiment(file_id: int) -> dict:
 
 ##### Expected response
 ```
-{"sentiment":[{"neg":<score>,"neu":<score>,"pos":<score>,"compound":<score>}]}
+{"sentiment":{<sentence_text>:{"neg":<score>,"neu":<score>,"pos":<score>,"compound":<score>},...}}
 ```
-
 
 ### 5. Get the named entities of a text
 > Create a `GET` request in `api.py` that returns a dict containing all the 
 > named entities of the file when you visit 
 > `http://127.0.0.1:8000/file/{id}/sentiment` in your browser.
 
+##### Function signature
+```
+@app.get("/file/{file_id}/named_entities")
+def get_named_entities(file_id: int) -> dict:
+    ...
+```
+
+##### Expected response
+```
+{"named_entities":[["<token_1>","<entity_tag>"],["<token_2>","<entity_tag>"],...]]}
+```
+
+## Competition
+TODO: review and update below text
+
+> Create a `GET` request in `api.py` that returns a dict containing all the 
+> named entities of the file when you visit 
+> `http://127.0.0.1:8000/file/{id}/sentiment` in your browser.
+
 ##### Additional info
+- You need to install NLTK data. In order to do that, you need to open a console
+  and type in the following lines:
+  
+  ```
+  >>> import nltk
+  >>> nltk.download('punkt')
+  ```
 - You need to make a model that will train the computer. The data to train the
   computer can be found in `data/train.csv`.
 - You can write the code for the model in `nlp_model/classifier.py`
@@ -227,7 +249,7 @@ def get_named_entities(file_id: int) -> dict:
 
 ##### Expected response
 ```
-{"named_entities":[["<word_1>","<entity"],["<word_2>","<entity"],...]]}
+{"named_entities":[["<token_1>","<entity>"],["<token_2>","<entity>"],...]]}
 ```
 
 ##### Notes
