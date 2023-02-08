@@ -14,9 +14,9 @@ from sklearn.model_selection import train_test_split
 
 def main():
     # Retrieve data
-    input_data_path = Path.cwd() / "data/train.csv"
-    output_model_path = Path.cwd() / "nlp_model/clf.pickle"
-    output_vectorizer_path = Path.cwd() / "nlp_model/tfidf_vec.pickle"
+    input_data_path = Path.cwd() / "../data/train.csv"
+    output_model_path = Path.cwd() / "clf.pickle"
+    output_vectorizer_path = Path.cwd() / "tfidf_vec.pickle"
 
     # Convert data to dataframe
     df = pd.read_csv(input_data_path, sep="\t", names=["SENTENCE_NR", "WORD", "POS", "POS_TAG", "NER_TAG"])
