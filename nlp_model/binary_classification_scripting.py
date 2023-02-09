@@ -16,20 +16,20 @@ from sklearn.preprocessing import StandardScaler
 
 def main():
     # Retrieve data
-    input_data_path = Path.cwd() / "../data/sentiment_competition_train.csv"
+    input_data_path = Path.cwd() / "data/sentiment_competition_train.csv"
     output_model_path = Path.cwd() / "binary_clf.pickle"
     output_vectorizer_path = Path.cwd() / "binary_tfidf_vec.pickle"
 
     # Convert data to dataframe
-    df = pd.read_csv(input_data_path, sep=",", names=["review", "sentiment"])
-
+    df = pd.read_csv(input_data_path, sep=",", names=["remove", "review", "sentiment"]
+                     )
+    df = df.drop(columns="remove")
     print(df.head())
-
     print(df.dtypes)
     print(df.shape)
 
     # Adjust to allow more data to be trained
-    df = df[:180000]
+    # df = df[:180000]
 
     # Remove empty rows
     df.dropna(inplace=True)
@@ -72,27 +72,27 @@ def main():
     print(classification_report(y_test, y_pred))
     print(f"Accuracy: {accuracy_score(y_test, y_pred)}")
 
-    pipe = Pipeline([('scaler', StandardScaler()), ('svc', LogisticRegression())])
-
-    # The pipeline can be used as any other estimator
-    # and avoids leaking the test set into the train set
-    pipe.fit(x_train, y_train)
-    print(pipe.score(x_test, y_test))
-    y_pred = pipe.predict(x_test)
-
-    pipe.fit(x_train, y_train)
-    pipe.score(x_test, y_test)
-
-    print(confusion_matrix(y_test, y_pred))
-    print(classification_report(y_test, pipe.predict(x_test)))
-    print(f"Accuracy: {accuracy_score(y_test, y_pred)}")
+    # pipe = Pipeline([('vec', TfidfVectorizer()), ('svc', LogisticRegression())])
+    # 
+    # # The pipeline can be used as any other estimator
+    # # and avoids leaking the test set into the train set
+    # pipe.fit(x_train, y_train)
+    # print(pipe.score(x_test, y_test))
+    # y_pred = pipe.predict(x_test)
+    #
+    # pipe.fit(x_train, y_train)
+    # pipe.score(x_test, y_test)
+    #
+    # print(confusion_matrix(y_test, y_pred))
+    # print(classification_report(y_test, pipe.predict(x_test)))
+    # print(f"Accuracy: {accuracy_score(y_test, y_pred)}")
 
     # Save classifier and corresponding vectorizer for api usage.
     pickle.dump(cls, open(output_model_path, "wb"))
     pickle.dump(vec, open(output_vectorizer_path, "wb"))
 
     # Save pipe and corresponding vectorizer for api usage.
-    pickle.dump(pipe, open("binary_pipe.pickle", "wb"))
+    # pickle.dump(pipe, open("binary_pipe.pickle", "wb"))
 
 
 

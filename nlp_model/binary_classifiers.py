@@ -10,6 +10,10 @@ from sklearn.feature_extraction import text
 from sklearn.model_selection import train_test_split
 
 logger = logging.getLogger(__name__)
+logger.setLevel("DEBUG")
+
+consoleHandler = logging.StreamHandler()
+logger.addHandler(consoleHandler)
 
 
 class BinaryDataProcessor:
@@ -66,17 +70,19 @@ class BinaryModelProcessor:
         if self.data_processor.processed:
             self.model.fit(self.data_processor.x_train, self.data_processor.y_train)
             logger.info("%s processed using data processor: %s" % (self, self.data_processor))
+            self.fitted = True
         else:
             logger.warning("Data processor still needs processing: %s" % self.data_processor)
 
     def validate_model(self) -> None:
         """Validate model based on predicted labels versus validated labels."""
-        y_predictions = self.model.predict(self.data_processor.x_validation)
-        logger.info(
-            "Confusion matrix:\n\n %s" % metrics.confusion_matrix(self.data_processor.y_validation,
-                                                                  y_predictions))
-        logger.info(metrics.classification_report(self.data_processor.y_validation, y_predictions))
-        logger.info("Accuracy: %s" % metrics.accuracy_score(self.data_processor.y_validation, y_predictions))
+        if self.fitted:
+            y_predictions = self.model.predict(self.data_processor.x_validation)
+            logger.info(
+                "Confusion matrix:\n\n %s" % metrics.confusion_matrix(self.data_processor.y_validation,
+                                                                      y_predictions))
+            logger.info(metrics.classification_report(self.data_processor.y_validation, y_predictions))
+            logger.info("Accuracy: %s" % metrics.accuracy_score(self.data_processor.y_validation, y_predictions))
 
 
 def get_binary_data_processing_strategies(dataframe: pd.DataFrame) -> dict:
@@ -105,10 +111,15 @@ def get_binary_model_classification_strategies(data_processor: BinaryDataProcess
 
 def main():
     # Retrieve data
-    input_data_path = Path.cwd() / "../data/sentiment_competition_dataset.csv"
+    input_data_path = Path.cwd() / "../data/sentiment_competition_train.csv"
 
     # Convert data to dataframe
-    df = pd.read_csv(input_data_path, sep=",", names=["review", "sentiment"])
+    # df = pd.read_csv(input_data_path, sep=",", names=["review", "sentiment"])
+
+    # Convert data to dataframe
+    df = pd.read_csv(input_data_path, sep=",", names=["remove", "review", "sentiment"]
+                     )
+    df = df.drop(columns="remove")
 
     binary_data_strategies = get_binary_data_processing_strategies(dataframe=df)
     binary_model_strategies = []
@@ -122,7 +133,6 @@ def main():
 
     for strategy in binary_model_strategies:
         for model_processor in strategy.values():
-            print(model_processor)
             model_processor.fit_model()
             model_processor.validate_model()
 
