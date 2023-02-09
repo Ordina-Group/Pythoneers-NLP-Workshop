@@ -16,7 +16,7 @@ from sklearn.preprocessing import StandardScaler
 
 def main():
     # Retrieve data
-    input_data_path = Path.cwd() / "../data/sentiment_competition_dataset.csv"
+    input_data_path = Path.cwd() / "../data/sentiment_competition_train.csv"
     output_model_path = Path.cwd() / "binary_clf.pickle"
     output_vectorizer_path = Path.cwd() / "binary_tfidf_vec.pickle"
 
@@ -29,7 +29,7 @@ def main():
     print(df.shape)
 
     # Adjust to allow more data to be trained
-    # df = df[:180000]
+    df = df[:180000]
 
     # Remove empty rows
     df.dropna(inplace=True)
