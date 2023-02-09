@@ -14,7 +14,7 @@ from sklearn.model_selection import train_test_split
 
 def main():
     # Retrieve data
-    input_data_path = Path.cwd() / "../data/train.csv"
+    input_data_path = Path.cwd() / "../data/multi-label_train.csv"
     output_model_path = Path.cwd() / "clf.pickle"
     output_vectorizer_path = Path.cwd() / "tfidf_vec.pickle"
 
