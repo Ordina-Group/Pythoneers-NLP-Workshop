@@ -59,7 +59,7 @@ def get_entry_by_id(rowid: int) -> tuple:
     """Get entry from existing db table by id."""
     sql_string = f"SELECT * FROM {TABLE_NAME} WHERE ROWID=?;"
     parameters = (rowid,)
-    entry, = sql_execute(sql_string, parameters)
+    (entry,) = sql_execute(sql_string, parameters)
     return entry
 
 
