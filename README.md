@@ -139,7 +139,7 @@ b'{"message":"file successfully uploaded","file_name":"file.txt"}'
 ##### Function signature
 ```
 @app.get("/file")
-def get_all_files() -> dict:
+def get_all_files() -> Dict[Any, Any]:
     ...
 ```
 
@@ -156,7 +156,7 @@ def get_all_files() -> dict:
 ##### Function signature
 ```
 @app.get("/file/{file_id}")
-def get_file(file_id: int) -> dict:
+def get_file(file_id: int) -> Dict[Any, Any]:
     ...
 ```
 
@@ -173,7 +173,7 @@ def get_file(file_id: int) -> dict:
 ##### Function signature
 ```
 @app.get("/file/{file_id}/tokens")
-def get_tokens(file_id: int) -> dict:
+def get_tokens(file_id: int) -> Dict[Any, Any]:
     ...
 ```
 
@@ -193,7 +193,7 @@ def get_tokens(file_id: int) -> dict:
 ##### Function signature
 ```
 @app.get("/file/{file_id}/sentiment")
-def get_sentiment(file_id: int) -> dict:
+def get_sentiment(file_id: int) -> Dict[Any, Any]:
     ...
 ```
 
@@ -210,7 +210,7 @@ def get_sentiment(file_id: int) -> dict:
 ##### Function signature
 ```
 @app.get("/file/{file_id}/named_entities")
-def get_named_entities(file_id: int) -> dict:
+def get_named_entities(file_id: int) -> Dict[Any, Any]:
     ...
 ```
 
@@ -243,7 +243,7 @@ TODO: review and update below text
 ##### Function signature
 ```
 @app.get("/file/{file_id}/named_entities")
-def get_named_entities(file_id: int) -> dict:
+def get_named_entities(file_id: int) -> Dict[Any, Any]:
     ...
 ```
 
