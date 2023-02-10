@@ -1,3 +1,6 @@
+"""Module containing the API methods."""
+from typing import Any, Dict
+
 from fastapi import FastAPI, UploadFile
 
 from db import (
@@ -10,12 +13,14 @@ app = FastAPI()
 
 
 @app.get("/")
-def root() -> dict:
-    return {"message": "Hello Future Pythoneer!"}
+def root() -> Dict[str, str]:
+    """The root call of the API."""
+    return {"message": "Hello Pythoneer!"}
 
 
 @app.post("/upload_file")
-async def upload_file(file: UploadFile) -> dict:
+async def upload_file(file: UploadFile) -> Any:
+    """Upload a file."""
     message = "file successfully uploaded"
     file_name = ""
 
@@ -24,8 +29,8 @@ async def upload_file(file: UploadFile) -> dict:
         file_name = file.filename
         data = str(contents, "utf-8")
         add_entry([file_name, data])
-    except Exception as e:
-        message = str(e)
+    except Exception as exc:
+        message = str(exc)
     finally:
         await file.close()
 
@@ -33,25 +38,30 @@ async def upload_file(file: UploadFile) -> dict:
 
 
 @app.get("/file")
-def get_file() -> dict:
+def get_file() -> Dict[Any, Any]:
+    """Get a specific file."""
     ...
 
 
 @app.get("/file/{file_id}")
-def get_all_files(file_id: int) -> dict:
+def get_all_files(file_id: int) -> Dict[Any, Any]:
+    """Get all the files."""
     ...
 
 
 @app.get("/file/{file_id}/tokens")
-def get_tokens(file_id: int) -> dict:
+def get_tokens(file_id: int) -> Dict[Any, Any]:
+    """Get the tokens of a certain file."""
     ...
 
 
 @app.get("/file/{file_id}/sentiment")
-def get_sentiment(file_id: int) -> dict:
+def get_sentiment(file_id: int) -> Dict[Any, Any]:
+    """Get the sentiment of a specific file."""
     ...
 
 
 @app.get("/file/{file_id}/named_entities")
-def get_named_entities(file_id: int) -> dict:
+def get_named_entities(file_id: int) -> Dict[Any, Any]:
+    """Get the named entities of a specific file."""
     ...
