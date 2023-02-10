@@ -28,7 +28,7 @@ def root() -> Dict[str, str]:
 async def upload_file(file: UploadFile) -> Dict[str, str]:
     """Upload a file."""
     message = "file successfully uploaded"
-    file_name = ""
+    file_name: str = ""
 
     try:
         contents = await file.read()
@@ -51,7 +51,7 @@ def get_all_files() -> Dict[str, Any]:
     """Get all the files."""
     entries = get_all_entries()
     nr_files = len(entries)
-    files = [{"id": rowid, "file_name": file_name} for rowid, file_name, _ in entries]
+    files = [{"id": rowid, "file_name": file_name} for rowid, file_name in entries]
 
     return {
         "nr_files": nr_files,
