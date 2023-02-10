@@ -1,3 +1,6 @@
+# pylint: disable=C0103
+
+
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 

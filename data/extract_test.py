@@ -1,13 +1,17 @@
+"""Extract the test csv."""
+# pylint: disable=C0103
+
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
 from pathlib import Path
+from typing import Dict
 
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
 
-def write_series_to_csv(file_name: str, data: dict[pd.Series]) -> None:
+def write_series_to_csv(file_name: str, data: Dict[str, pd.Series]) -> None:
     """Write pandas Series to csv file.
 
     :param file_name: example.csv
@@ -20,7 +24,8 @@ def write_series_to_csv(file_name: str, data: dict[pd.Series]) -> None:
         print("Please use the .csv extension in the filename.")
 
 
-def main():
+def main() -> None:
+    """Convert data to a csv file."""
     input_data_path = Path.cwd() / "data/sentiment_competition_all.csv"
 
     # Convert data to dataframe.
