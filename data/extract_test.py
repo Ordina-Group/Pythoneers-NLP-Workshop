@@ -15,13 +15,13 @@ def write_series_to_csv(file_name: str, data: dict[pd.Series]) -> None:
     """
     df = pd.DataFrame(data)
     if file_name.endswith('.csv'):
-        df.to_csv(file_name)
+        df.to_csv(file_name, index=False)
     else:
         print('Please use the .csv extension in the filename.')
 
 
 def main():
-    input_data_path = Path.cwd() / "data/sentiment_competition_dataset.csv"
+    input_data_path = Path.cwd() / "data/sentiment_competition_all.csv"
 
     # Convert data to dataframe.
     df = pd.read_csv(input_data_path, sep=",", names=["review", "sentiment"])
@@ -44,7 +44,7 @@ def main():
 
     # Convert to pandas dataframe and save into csv file.
     write_series_to_csv(file_name='sentiment_competition_train.csv',
-                        data=train_data)
+                        data=train_data,)
 
     write_series_to_csv(file_name='sentiment_competition_test.csv',
                         data=test_data)
