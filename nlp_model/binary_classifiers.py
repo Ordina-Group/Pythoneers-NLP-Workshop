@@ -22,6 +22,7 @@ logger.addHandler(consoleHandler)
 
 class BinaryDataProcessor:
     """Class for the binary data processor."""
+
     processed = False
     x_train = None
     x_validation = None
@@ -67,6 +68,7 @@ class BinaryDataProcessor:
 
 class BinaryModelProcessor:
     """Class for the binary model processor."""
+
     fitted = False
 
     def __init__(self, data_processor: BinaryDataProcessor, model: sklearn) -> None:
@@ -116,7 +118,9 @@ class BinaryModelProcessor:
             )
 
 
-def get_binary_data_processing_strategies(dataframe: pd.DataFrame) -> Dict[str, BinaryDataProcessor]:
+def get_binary_data_processing_strategies(
+    dataframe: pd.DataFrame,
+) -> Dict[str, BinaryDataProcessor]:
     """Returns a dictionary with multiple binary data processing strategies."""
     strategies = {
         "tf-idf": BinaryDataProcessor(
