@@ -110,8 +110,7 @@ def main():
     input_data_path = Path.cwd() / "../data/sentiment_competition_train.csv"
 
     # Convert data to dataframe
-    df = pd.read_csv(input_data_path, sep=",", names=["remove", "review", "sentiment"]
-    df = df.drop(columns="remove")
+    df = pd.read_csv(input_data_path, sep=",", names=["review", "sentiment"]
 
     binary_data_strategies = get_binary_data_processing_strategies(dataframe=df)
     binary_model_strategies = []
