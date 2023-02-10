@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pandas as pd
 import sklearn
-from sklearn import linear_model, naive_bayes
+from sklearn import linear_model
 from sklearn import metrics
 from sklearn import svm
 from sklearn.feature_extraction import text
@@ -40,7 +40,7 @@ class BinaryDataProcessor:
         4. Split into train and test data.
         """
         self.df.dropna(inplace=True)
-        x = self.df[x_column].tolist()
+        x = self.df[x_column].to_numpy()
         y = self.df[y_column]
         x = self.vec.fit_transform(x)
         self.x_train, self.x_validation, self.y_train, self.y_validation = train_test_split(x,
@@ -89,8 +89,6 @@ def get_binary_data_processing_strategies(dataframe: pd.DataFrame) -> dict:
     """Returns a dictionary with multiple binary data processing strategies."""
     strategies = {"tf-idf": BinaryDataProcessor(dataframe=dataframe,
                                                 vectorizer=text.TfidfVectorizer),
-                  "count": BinaryDataProcessor(dataframe=dataframe,
-                                               vectorizer=text.CountVectorizer),
                   "hashing": BinaryDataProcessor(dataframe=dataframe,
                                                  vectorizer=text.HashingVectorizer),
                   }
@@ -103,8 +101,6 @@ def get_binary_model_classification_strategies(data_processor: BinaryDataProcess
                                                               model=linear_model.LogisticRegression),
                   "support_vector_machine": BinaryModelProcessor(data_processor=data_processor,
                                                                  model=svm.SVC),
-                  "naive_bayes": BinaryModelProcessor(data_processor=data_processor,
-                                                      model=naive_bayes.GaussianNB),
                   }
     return strategies
 
