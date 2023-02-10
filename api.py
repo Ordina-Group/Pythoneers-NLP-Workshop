@@ -50,7 +50,6 @@ async def upload_file(file: UploadFile) -> Dict[str, str]:
 def get_all_files() -> Dict[str, Any]:
     """Get all the files."""
     entries = get_all_entries()
-
     nr_files = len(entries)
     files = [{"id": rowid, "file_name": file_name} for rowid, file_name, _ in entries]
 
@@ -87,7 +86,7 @@ def get_tokens(file_id: int) -> Dict[str, Any]:
 
 
 @app.get("/file/{file_id}/sentiment")
-def get_sentiment(file_id: int) -> Dict[str, Dict[Any]]:
+def get_sentiment(file_id: int) -> Dict[str, Dict[str, Any]]:
     """Get the sentiment of a specific file."""
     _, contents = get_entry_by_id(file_id)
 

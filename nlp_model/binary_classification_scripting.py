@@ -16,7 +16,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 
 
-def main():
+def main() -> None:
     """Determine the binary classification."""
     # Retrieve data
     input_data_path = Path.cwd() / "data/sentiment_competition_train.csv"

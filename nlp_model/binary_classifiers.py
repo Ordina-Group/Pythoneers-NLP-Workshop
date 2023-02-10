@@ -113,7 +113,7 @@ class BinaryModelProcessor:
             )
 
 
-def get_binary_data_processing_strategies(dataframe: pd.DataFrame) -> dict:
+def get_binary_data_processing_strategies(dataframe: pd.DataFrame) -> dict[str, BinaryDataProcessor]:
     """Returns a dictionary with multiple binary data processing strategies."""
     strategies = {
         "tf-idf": BinaryDataProcessor(
@@ -128,7 +128,7 @@ def get_binary_data_processing_strategies(dataframe: pd.DataFrame) -> dict:
 
 def get_binary_model_classification_strategies(
     data_processor: BinaryDataProcessor,
-) -> dict:
+) -> dict[str, BinaryModelProcessor]:
     """Returns a dictionary with multiple binary model classification strategies."""
     strategies = {
         "logistic_regression": BinaryModelProcessor(
@@ -141,7 +141,8 @@ def get_binary_model_classification_strategies(
     return strategies
 
 
-def main():
+def main() -> None:
+    """Starting point of script."""
     # Retrieve data
     input_data_path = Path.cwd() / "../data/sentiment_competition_train.csv"
 

@@ -15,7 +15,8 @@ from sklearn.metrics import confusion_matrix, accuracy_score
 from sklearn.model_selection import train_test_split
 
 
-def main():
+def main() -> None:
+    """Starting point of script."""
     # Retrieve data
     input_data_path = Path.cwd() / "../data/multi-label_train.csv"
     output_model_path = Path.cwd() / "clf.pickle"
