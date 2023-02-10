@@ -50,7 +50,9 @@ def main():
     y2 = y.copy()
 
     # Split into train and test data. Please note, validation data is not used. It splits on the training data.
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+    x_train, x_test, y_train, y_test = train_test_split(
+        x, y, test_size=0.2, random_state=42
+    )
 
     # Train classifier based on training data with corresponding classification labels.
     cls.fit(x_train, y_train)
@@ -69,9 +71,11 @@ def main():
     pickle.dump(vec, open(output_vectorizer_path, "wb"))
 
     # Split into train and test data. Please note, validation data is not used. It splits on the training data.
-    x2_train, x2_test, y2_train, y2_test = train_test_split(x2, y2, test_size=0.2, random_state=42)
+    x2_train, x2_test, y2_train, y2_test = train_test_split(
+        x2, y2, test_size=0.2, random_state=42
+    )
 
-    pipe = Pipeline([('vec', TfidfVectorizer()), ('cls', LogisticRegression())])
+    pipe = Pipeline([("vec", TfidfVectorizer()), ("cls", LogisticRegression())])
 
     # The pipeline can be used as any other estimator
     # and avoids leaking the test set into the train set

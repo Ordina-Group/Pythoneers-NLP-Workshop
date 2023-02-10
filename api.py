@@ -101,6 +101,8 @@ def get_named_entities(file_id: int) -> dict:
     tokens = nltk.tokenize.word_tokenize(contents)
     tagged_tokens = nltk.pos_tag(tokens)
     chunks = nltk.ne_chunk(tagged_tokens)
-    named_entities = [[x.leaves()[0][0], x.label()] for x in chunks if hasattr(x, "label")]
+    named_entities = [
+        [x.leaves()[0][0], x.label()] for x in chunks if hasattr(x, "label")
+    ]
 
     return {"named_entities": named_entities}

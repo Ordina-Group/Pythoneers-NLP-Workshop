@@ -14,10 +14,10 @@ def write_series_to_csv(file_name: str, data: dict[pd.Series]) -> None:
     :param data: Dictionary containing columns as keys and Series as values.
     """
     df = pd.DataFrame(data)
-    if file_name.endswith('.csv'):
+    if file_name.endswith(".csv"):
         df.to_csv(file_name, index=False)
     else:
-        print('Please use the .csv extension in the filename.')
+        print("Please use the .csv extension in the filename.")
 
 
 def main():
@@ -36,18 +36,21 @@ def main():
     y = df["sentiment"]
 
     # Split into train and test data.
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+    x_train, x_test, y_train, y_test = train_test_split(
+        x, y, test_size=0.2, random_state=42
+    )
 
     # Reformat into dictionary.
-    train_data = {'review': x_train, 'sentiment': y_train}
-    test_data = {'review': x_test, 'sentiment': y_test}
+    train_data = {"review": x_train, "sentiment": y_train}
+    test_data = {"review": x_test, "sentiment": y_test}
 
     # Convert to pandas dataframe and save into csv file.
-    write_series_to_csv(file_name='sentiment_competition_train.csv',
-                        data=train_data,)
+    write_series_to_csv(
+        file_name="sentiment_competition_train.csv",
+        data=train_data,
+    )
 
-    write_series_to_csv(file_name='sentiment_competition_test.csv',
-                        data=test_data)
+    write_series_to_csv(file_name="sentiment_competition_test.csv", data=test_data)
 
 
 if __name__ == "__main__":

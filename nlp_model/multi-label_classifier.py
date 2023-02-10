@@ -19,7 +19,11 @@ def main():
     output_vectorizer_path = Path.cwd() / "tfidf_vec.pickle"
 
     # Convert data to dataframe
-    df = pd.read_csv(input_data_path, sep="\t", names=["SENTENCE_NR", "WORD", "POS", "POS_TAG", "NER_TAG"])
+    df = pd.read_csv(
+        input_data_path,
+        sep="\t",
+        names=["SENTENCE_NR", "WORD", "POS", "POS_TAG", "NER_TAG"],
+    )
 
     # Adjust to allow more data to be trained
     df = df[:180000]
@@ -41,7 +45,9 @@ def main():
     y = df["NER_TAG"]
 
     # Split into train and test data. Please note, validation data is not used. It splits on the training data.
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
+    x_train, x_test, y_train, y_test = train_test_split(
+        x, y, test_size=0.2, random_state=0
+    )
 
     # Train classifier based on training data with corresponding classification labels.
     cls.fit(x_train, y_train)

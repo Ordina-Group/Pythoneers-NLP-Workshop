@@ -31,7 +31,11 @@ class BinaryDataProcessor:
     def __repr__(self) -> str:
         return f"BinaryDataProcessor: Vectorizer={self.vec}"
 
-    def pre_process(self, x_column: str, y_column: str, ) -> None:
+    def pre_process(
+        self,
+        x_column: str,
+        y_column: str,
+    ) -> None:
         """Pre-process dataframe.
 
         1. Remove empty rows.
@@ -43,12 +47,17 @@ class BinaryDataProcessor:
         x = self.df[x_column].to_numpy()
         y = self.df[y_column]
         x = self.vec.fit_transform(x)
-        self.x_train, self.x_validation, self.y_train, self.y_validation = train_test_split(x,
-                                                                                            y,
-                                                                                            test_size=0.2,
-                                                                                            random_state=0)
+        (
+            self.x_train,
+            self.x_validation,
+            self.y_train,
+            self.y_validation,
+        ) = train_test_split(x, y, test_size=0.2, random_state=0)
         self.processed = True
-        logger.info("Processed dataframe with: x_column=%s and y_column=%s" % (x_column, y_column))
+        logger.info(
+            "Processed dataframe with: x_column=%s and y_column=%s"
+            % (x_column, y_column)
+        )
 
 
 class BinaryModelProcessor:
@@ -69,39 +78,63 @@ class BinaryModelProcessor:
         """
         if self.data_processor.processed:
             self.model.fit(self.data_processor.x_train, self.data_processor.y_train)
-            logger.info("%s processed using data processor: %s" % (self, self.data_processor))
+            logger.info(
+                "%s processed using data processor: %s" % (self, self.data_processor)
+            )
             self.fitted = True
         else:
-            logger.warning("Data processor still needs processing: %s" % self.data_processor)
+            logger.warning(
+                "Data processor still needs processing: %s" % self.data_processor
+            )
 
     def validate_model(self) -> None:
         """Validate model based on predicted labels versus validated labels."""
         if self.fitted:
             y_predictions = self.model.predict(self.data_processor.x_validation)
             logger.info(
-                "Confusion matrix:\n\n %s" % metrics.confusion_matrix(self.data_processor.y_validation,
-                                                                      y_predictions))
-            logger.info(metrics.classification_report(self.data_processor.y_validation, y_predictions))
-            logger.info("Accuracy: %s" % metrics.accuracy_score(self.data_processor.y_validation, y_predictions))
+                "Confusion matrix:\n\n %s"
+                % metrics.confusion_matrix(
+                    self.data_processor.y_validation, y_predictions
+                )
+            )
+            logger.info(
+                metrics.classification_report(
+                    self.data_processor.y_validation, y_predictions
+                )
+            )
+            logger.info(
+                "Accuracy: %s"
+                % metrics.accuracy_score(
+                    self.data_processor.y_validation, y_predictions
+                )
+            )
 
 
 def get_binary_data_processing_strategies(dataframe: pd.DataFrame) -> dict:
     """Returns a dictionary with multiple binary data processing strategies."""
-    strategies = {"tf-idf": BinaryDataProcessor(dataframe=dataframe,
-                                                vectorizer=text.TfidfVectorizer),
-                  "hashing": BinaryDataProcessor(dataframe=dataframe,
-                                                 vectorizer=text.HashingVectorizer),
-                  }
+    strategies = {
+        "tf-idf": BinaryDataProcessor(
+            dataframe=dataframe, vectorizer=text.TfidfVectorizer
+        ),
+        "hashing": BinaryDataProcessor(
+            dataframe=dataframe, vectorizer=text.HashingVectorizer
+        ),
+    }
     return strategies
 
 
-def get_binary_model_classification_strategies(data_processor: BinaryDataProcessor) -> dict:
+def get_binary_model_classification_strategies(
+    data_processor: BinaryDataProcessor,
+) -> dict:
     """Returns a dictionary with multiple binary model classification strategies."""
-    strategies = {"logistic_regression": BinaryModelProcessor(data_processor=data_processor,
-                                                              model=linear_model.LogisticRegression),
-                  "support_vector_machine": BinaryModelProcessor(data_processor=data_processor,
-                                                                 model=svm.SVC),
-                  }
+    strategies = {
+        "logistic_regression": BinaryModelProcessor(
+            data_processor=data_processor, model=linear_model.LogisticRegression
+        ),
+        "support_vector_machine": BinaryModelProcessor(
+            data_processor=data_processor, model=svm.SVC
+        ),
+    }
     return strategies
 
 
@@ -110,7 +143,7 @@ def main():
     input_data_path = Path.cwd() / "../data/sentiment_competition_train.csv"
 
     # Convert data to dataframe
-    df = pd.read_csv(input_data_path, sep=",", names=["review", "sentiment"]
+    df = pd.read_csv(input_data_path, sep=",", names=["review", "sentiment"])
 
     binary_data_strategies = get_binary_data_processing_strategies(dataframe=df)
     binary_model_strategies = []
@@ -120,7 +153,9 @@ def main():
 
     for data_processor in binary_data_strategies.values():
         data_processor.pre_process(x_column=features, y_column=label)
-        binary_model_strategies.append(get_binary_model_classification_strategies(data_processor))
+        binary_model_strategies.append(
+            get_binary_model_classification_strategies(data_processor)
+        )
 
     for strategy in binary_model_strategies:
         for model_processor in strategy.values():
