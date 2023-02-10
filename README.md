@@ -101,7 +101,7 @@ all the required packages for this project.
 
 ##### Expected response
 ```
-{"message":"Hello Future Pythoneer!"}
+{"message":"Hello Pythoneer!"}
 ```
 
 ##### Notes
@@ -220,7 +220,8 @@ def get_named_entities(file_id: int) -> Dict[Any, Any]:
 ```
 
 ## Competition
-Now it is time to train your own NLP model!
+Now it is time to train your own NLP model! 
+You are going to perform binary sentiment classification which means classifying the sentiment of a review to either positive or negative (0 or 1).
 
 These steps can be followed as a reference:
 - The data to train your model can be found in `data\sentiment_competition_train.csv`
