@@ -1,3 +1,6 @@
+"""Module for the binary classifiers."""
+# pylint: disable=C0103
+
 import logging
 from pathlib import Path
 

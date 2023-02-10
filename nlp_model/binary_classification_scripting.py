@@ -1,3 +1,6 @@
+"""Module for binary classification scripting."""
+
+
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
@@ -14,6 +17,7 @@ from sklearn.pipeline import Pipeline
 
 
 def main():
+    """Determine the binary classification."""
     # Retrieve data
     input_data_path = Path.cwd() / "data/sentiment_competition_train.csv"
     output_model_path = Path.cwd() / "binary_clf.pickle"
@@ -49,12 +53,14 @@ def main():
     y = df["sentiment"]
     y2 = y.copy()
 
-    # Split into train and test data. Please note, validation data is not used. It splits on the training data.
+    # Split into train and test data. Please note, validation data is not used.
+    # It splits on the training data.
     x_train, x_test, y_train, y_test = train_test_split(
         x, y, test_size=0.2, random_state=42
     )
 
-    # Train classifier based on training data with corresponding classification labels.
+    # Train classifier based on training data with corresponding classification
+    # labels.
     cls.fit(x_train, y_train)
 
     # Get classification label predictions.
@@ -70,7 +76,8 @@ def main():
     pickle.dump(cls, open(output_model_path, "wb"))
     pickle.dump(vec, open(output_vectorizer_path, "wb"))
 
-    # Split into train and test data. Please note, validation data is not used. It splits on the training data.
+    # Split into train and test data. Please note, validation data is not used.
+    # It splits on the training data.
     x2_train, x2_test, y2_train, y2_test = train_test_split(
         x2, y2, test_size=0.2, random_state=42
     )

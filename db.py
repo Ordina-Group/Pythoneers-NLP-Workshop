@@ -1,5 +1,7 @@
+"""Module containing the database specific actions."""
+
 import sqlite3
-from typing import List, Tuple
+from typing import List, Tuple, Any
 
 DB_NAME: str = "files.db"
 TABLE_NAME: str = "Files"
@@ -8,8 +10,8 @@ DATA: List[Tuple[str, str]] = [("File_name", "TEXT"), ("Contents", "TEXT")]
 
 def sql_execute(
     sql_string: str,
-    parameters: tuple = (),
-) -> str:
+    parameters: Any = (),
+) -> List[Any]:
     """Execute provided SQL string with parameters on db."""
     with sqlite3.connect(DB_NAME) as connection:
         cursor = connection.execute(sql_string, parameters)
@@ -49,13 +51,13 @@ def add_entry(values: List[str]) -> None:
     sql_execute(sql_string, parameters)
 
 
-def get_all_entries() -> List[tuple]:
+def get_all_entries() -> List[Tuple[str, str]]:
     """Get all entries from existing db table."""
     sql_string = f"SELECT ROWID, * FROM {TABLE_NAME};"
     return sql_execute(sql_string)
 
 
-def get_entry_by_id(rowid: int) -> tuple:
+def get_entry_by_id(rowid: int) -> Any:
     """Get entry from existing db table by id."""
     sql_string = f"SELECT * FROM {TABLE_NAME} WHERE ROWID=?;"
     parameters = (rowid,)

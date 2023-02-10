@@ -1,7 +1,11 @@
+black
 fastapi
+mypy
 nltk
 pandas
+pylint
 python-multipart
 requests
 scikit-learn
+types-requests
 uvicorn
