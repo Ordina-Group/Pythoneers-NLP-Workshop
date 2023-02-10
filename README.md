@@ -14,8 +14,8 @@ personal projects!
 - [Exercises](#exercises)
   1. [Do a `GET` request](#1-do-a-get-request)
   2. [Create a `POST` request](#2-create-a-post-request)
-  3. [Get all words from a text](#3-get-all-the-words-from-a-text)
-  4. [Get the sentiment of a text](#4-get-the-sentiment-of-a-text)
+  3. [Get all tokens from a text](#3-get-all-the-tokens-from-a-text)
+  4. [Get the sentiment of a text](#4-get-the-sentiment-of-sentence-tokens-of-all-the-lines-of-a-text-file)
   5. [Get the named entities of a text](#5-get-the-named-entities-of-a-text)
 - [Competition](#competition)
 
