@@ -1,4 +1,6 @@
+"""Module for multi label classification."""
 # pylint: disable=C0103
+# pylint: disable=C0103,C0301,C0209,R1732
 
 
 #!/usr/bin/python

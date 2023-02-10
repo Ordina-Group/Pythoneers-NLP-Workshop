@@ -1,5 +1,5 @@
 """Module for binary classification scripting."""
-
+# pylint: disable=C0103,C0301,C0209,R1732,R0914
 
 #!/usr/bin/python
 # -*- coding: utf-8 -*-

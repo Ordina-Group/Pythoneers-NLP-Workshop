@@ -1,8 +1,9 @@
 """Module for the binary classifiers."""
-# pylint: disable=C0103
+# pylint: disable=C0103,C0301,C0209
 
 import logging
 from pathlib import Path
+from typing import Dict
 
 import pandas as pd
 import sklearn
@@ -20,6 +21,7 @@ logger.addHandler(consoleHandler)
 
 
 class BinaryDataProcessor:
+    """Class for the binary data processor."""
     processed = False
     x_train = None
     x_validation = None
@@ -64,6 +66,7 @@ class BinaryDataProcessor:
 
 
 class BinaryModelProcessor:
+    """Class for the binary model processor."""
     fitted = False
 
     def __init__(self, data_processor: BinaryDataProcessor, model: sklearn) -> None:
@@ -113,7 +116,7 @@ class BinaryModelProcessor:
             )
 
 
-def get_binary_data_processing_strategies(dataframe: pd.DataFrame) -> dict[str, BinaryDataProcessor]:
+def get_binary_data_processing_strategies(dataframe: pd.DataFrame) -> Dict[str, BinaryDataProcessor]:
     """Returns a dictionary with multiple binary data processing strategies."""
     strategies = {
         "tf-idf": BinaryDataProcessor(
@@ -128,7 +131,7 @@ def get_binary_data_processing_strategies(dataframe: pd.DataFrame) -> dict[str, 
 
 def get_binary_model_classification_strategies(
     data_processor: BinaryDataProcessor,
-) -> dict[str, BinaryModelProcessor]:
+) -> Dict[str, BinaryModelProcessor]:
     """Returns a dictionary with multiple binary model classification strategies."""
     strategies = {
         "logistic_regression": BinaryModelProcessor(
