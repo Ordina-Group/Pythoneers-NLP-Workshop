@@ -220,41 +220,14 @@ def get_named_entities(file_id: int) -> Dict[Any, Any]:
 ```
 
 ## Competition
-TODO: review and update below text
+Now it is time to train your own NLP model!
 
-> Create a `GET` request in `api.py` that returns a dict containing all the 
-> named entities of the file when you visit 
-> `http://127.0.0.1:8000/file/{id}/sentiment` in your browser.
-
-##### Additional info
-- You need to install NLTK data. In order to do that, you need to open a console
-  and type in the following lines:
-  
-  ```
-  >>> import nltk
-  >>> nltk.download('punkt')
-  ```
-- You need to make a model that will train the computer. The data to train the
-  computer can be found in `data/train.csv`.
-- You can write the code for the model in `nlp_model/classifier.py`
-- To train the model, just run `python nlp_model/classifier.py` in a terminal.
-- Once you have trained the computer, we can connect the model and the API.
-
-##### Function signature
-```
-@app.get("/file/{file_id}/named_entities")
-def get_named_entities(file_id: int) -> Dict[Any, Any]:
-    ...
-```
-
-##### Expected response
-```
-{"named_entities":[["<token_1>","<entity>"],["<token_2>","<entity>"],...]]}
-```
-
-##### Notes
-- It is allowed (an highly recommended) to use the internet if you are 
-  struggling (for example, check [this link](https://scikit-learn.org/stable/tutorial/text_analytics/working_with_text_data.html)).
-- Once the model is linked and an output, try to optimize the model. Add some
-  preprocessing steps for example or try a to upload your own text file and see
-  what happens.
+These steps can be followed as a reference:
+- The data to train your model can be found in `data\sentiment_competition_train.csv`
+- Pre-process dataset
+- Split dataset into a training and validation set
+- Vectorize data
+- Train model using classification algorithm
+- Validate trained model using validation dataset
+- Improve model/pre-processing/vectorizer etc.
+- Evaluate with the test set and hope for the best!
