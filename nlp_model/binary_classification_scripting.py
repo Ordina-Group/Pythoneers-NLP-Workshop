@@ -10,8 +10,6 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix, accuracy_score
 from sklearn.model_selection import train_test_split
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
 
 
 def main():
@@ -22,11 +20,7 @@ def main():
 
     # Convert data to dataframe
     df = pd.read_csv(input_data_path, sep=",", names=["remove", "review", "sentiment"]
-                     )
     df = df.drop(columns="remove")
-    print(df.head())
-    print(df.dtypes)
-    print(df.shape)
 
     # Adjust to allow more data to be trained
     # df = df[:180000]
@@ -49,7 +43,6 @@ def main():
     x = df["review"].tolist()
 
     # Convert to vector
-
     x = vec.fit_transform(x)
 
     # Retrieve classification labels
@@ -57,7 +50,6 @@ def main():
 
     # Split into train and test data. Please note, validation data is not used. It splits on the training data.
     x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
-
     print(type(x_test))
 
     # Train classifier based on training data with corresponding classification labels.
@@ -72,28 +64,9 @@ def main():
     print(classification_report(y_test, y_pred))
     print(f"Accuracy: {accuracy_score(y_test, y_pred)}")
 
-    # pipe = Pipeline([('vec', TfidfVectorizer()), ('svc', LogisticRegression())])
-    # 
-    # # The pipeline can be used as any other estimator
-    # # and avoids leaking the test set into the train set
-    # pipe.fit(x_train, y_train)
-    # print(pipe.score(x_test, y_test))
-    # y_pred = pipe.predict(x_test)
-    #
-    # pipe.fit(x_train, y_train)
-    # pipe.score(x_test, y_test)
-    #
-    # print(confusion_matrix(y_test, y_pred))
-    # print(classification_report(y_test, pipe.predict(x_test)))
-    # print(f"Accuracy: {accuracy_score(y_test, y_pred)}")
-
     # Save classifier and corresponding vectorizer for api usage.
     pickle.dump(cls, open(output_model_path, "wb"))
     pickle.dump(vec, open(output_vectorizer_path, "wb"))
-
-    # Save pipe and corresponding vectorizer for api usage.
-    # pickle.dump(pipe, open("binary_pipe.pickle", "wb"))
-
 
 
 if __name__ == "__main__":
