@@ -21,12 +21,12 @@ def root() -> Dict[str, str]:
 @app.post("/upload_file")
 async def upload_file(file: UploadFile) -> Any:
     """Upload a file."""
-    message = "file successfully uploaded"
-    file_name = ""
+    message: str = "file successfully uploaded"
+    file_name: str = ""
 
     try:
         contents = await file.read()
-        file_name = file.filename
+        file_name = str(file.filename)
         data = str(contents, "utf-8")
         add_entry([file_name, data])
     except Exception as exc:
