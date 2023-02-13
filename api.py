@@ -38,30 +38,30 @@ async def upload_file(file: UploadFile) -> Any:
 
 
 @app.get("/file")
-def get_file() -> Dict[Any, Any]:
-    """Get a specific file."""
-    ...
-
-
-@app.get("/file/{file_id}")
-def get_all_files(file_id: int) -> Dict[Any, Any]:
+def get_all_files() -> Dict[str, Any]:
     """Get all the files."""
     ...
 
 
+@app.get("/file/{file_id}")
+def get_file(file_id: int) -> Dict[str, str]:
+    """Get a specific file."""
+    ...
+
+
 @app.get("/file/{file_id}/tokens")
-def get_tokens(file_id: int) -> Dict[Any, Any]:
+def get_tokens(file_id: int) -> Dict[str, Any]:
     """Get the tokens of a certain file."""
     ...
 
 
 @app.get("/file/{file_id}/sentiment")
-def get_sentiment(file_id: int) -> Dict[Any, Any]:
+def get_sentiment(file_id: int) -> Dict[str, Any]:
     """Get the sentiment of a specific file."""
     ...
 
 
 @app.get("/file/{file_id}/named_entities")
-def get_named_entities(file_id: int) -> Dict[Any, Any]:
+def get_named_entities(file_id: int) -> Dict[str, Any]:
     """Get the named entities of a specific file."""
     ...
