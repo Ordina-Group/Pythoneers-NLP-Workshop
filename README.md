@@ -111,6 +111,10 @@ editor. Next, install all the required packages for this project:
 > Create a `POST` request that uploads a file when you execute 
 > `python requester.py` in your terminal.
 
+##### Notes
+- A part of the code for this request is already given in `api.py`. Just replace
+  the `...` with the right code to get the right output.
+
 ##### Additional info
 The post request uses the module `requester.py` (just take a look and see what
 happens there). To do the actual upload of files to the database, run the 
@@ -125,10 +129,6 @@ Make sure that you have another terminal active, where the API runner is active.
 b'{"message":"file successfully uploaded","file_name":"file.txt"}'
 200
 ```
-
-##### Notes
-- A part of the code for this request is already given in `api.py`. Just replace
-  the `...` with the right code to get the right output.
 
 ### 3. Get all the tokens from a text
 #### Part I
