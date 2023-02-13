@@ -60,8 +60,8 @@ automatically installed.
 **Note**: When the command is not found or the version is 2.x, try `python3 --version` and use `python3` instead of `python` in the commands below.
 
 #### Project setup
-When the right python version is installed, we can open our project and install
-all the required packages for this project.
+Clone this repository to your machine and open the project in your favourite
+editor. Next, install all the required packages for this project:
 - Create a virtual environment:
 
     `python -m venv venv`
@@ -111,6 +111,10 @@ all the required packages for this project.
 > Create a `POST` request that uploads a file when you execute 
 > `python requester.py` in your terminal.
 
+##### Notes
+- A part of the code for this request is already given in `api.py`. Just replace
+  the `...` with the right code to get the right output.
+
 ##### Additional info
 The post request uses the module `requester.py` (just take a look and see what
 happens there). To do the actual upload of files to the database, run the 
@@ -126,10 +130,6 @@ b'{"message":"file successfully uploaded","file_name":"file.txt"}'
 200
 ```
 
-##### Notes
-- A part of the code for this request is already given in `api.py`. Just replace
-  the `...` with the right code to get the right output.
-
 ### 3. Get all the tokens from a text
 #### Part I
 > Create a `GET` request  in `api.py` that returns a dict containing the numbers
@@ -139,7 +139,7 @@ b'{"message":"file successfully uploaded","file_name":"file.txt"}'
 ##### Function signature
 ```
 @app.get("/file")
-def get_all_files() -> Dict[Any, Any]:
+def get_all_files() -> Dict[str, Any]:
     ...
 ```
 
@@ -156,7 +156,7 @@ def get_all_files() -> Dict[Any, Any]:
 ##### Function signature
 ```
 @app.get("/file/{file_id}")
-def get_file(file_id: int) -> Dict[Any, Any]:
+def get_file(file_id: int) -> Dict[str, str]:
     ...
 ```
 
@@ -167,13 +167,13 @@ def get_file(file_id: int) -> Dict[Any, Any]:
 
 #### Part III
 > Create a `GET` request in `api.py` that returns a dict containing all the 
-> tokens from that file when you visit `http://127.0.0.1:8000/file/{id}/words` in 
+> tokens from that file when you visit `http://127.0.0.1:8000/file/{id}/tokens` in 
 > your browser. A token can be a set of multiple words that belong together like 'New York' or 'Harry Potter'.
 
 ##### Function signature
 ```
 @app.get("/file/{file_id}/tokens")
-def get_tokens(file_id: int) -> Dict[Any, Any]:
+def get_tokens(file_id: int) -> Dict[str, Any]:
     ...
 ```
 
@@ -193,7 +193,7 @@ def get_tokens(file_id: int) -> Dict[Any, Any]:
 ##### Function signature
 ```
 @app.get("/file/{file_id}/sentiment")
-def get_sentiment(file_id: int) -> Dict[Any, Any]:
+def get_sentiment(file_id: int) -> Dict[str, Any]:
     ...
 ```
 
@@ -210,7 +210,7 @@ def get_sentiment(file_id: int) -> Dict[Any, Any]:
 ##### Function signature
 ```
 @app.get("/file/{file_id}/named_entities")
-def get_named_entities(file_id: int) -> Dict[Any, Any]:
+def get_named_entities(file_id: int) -> Dict[str, Any]:
     ...
 ```
 
