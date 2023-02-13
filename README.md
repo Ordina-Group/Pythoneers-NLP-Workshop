@@ -167,7 +167,7 @@ def get_file(file_id: int) -> Dict[str, str]:
 
 #### Part III
 > Create a `GET` request in `api.py` that returns a dict containing all the 
-> tokens from that file when you visit `http://127.0.0.1:8000/file/{id}/words` in 
+> tokens from that file when you visit `http://127.0.0.1:8000/file/{id}/tokens` in 
 > your browser. A token can be a set of multiple words that belong together like 'New York' or 'Harry Potter'.
 
 ##### Function signature
