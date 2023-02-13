@@ -60,8 +60,8 @@ automatically installed.
 **Note**: When the command is not found or the version is 2.x, try `python3 --version` and use `python3` instead of `python` in the commands below.
 
 #### Project setup
-When the right python version is installed, we can open our project and install
-all the required packages for this project.
+Clone this repository to your machine and open the project in your favourite
+editor. Next, install all the required packages for this project:
 - Create a virtual environment:
 
     `python -m venv venv`
